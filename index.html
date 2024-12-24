@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Om Chaudhari - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <canvas id="bg-animation"></canvas>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">Om Chaudhari</a>
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1>Hello, my name is</h1>
+        <h2 data-text="Om Chaudhari">Om Chaudhari</h2>
+        <p>And I'm a IT Engineer Graduate</p>
+        <div class="social-links">
+            <a href="https://github.com/omchaudhari553" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/om-chaudhari553/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/its_om_chaudhari_patil_/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:omchaudhari553@gmail.com"><i class="far fa-envelope"></i></a>
+        </div>
+        <a href="#contact" class="hire-me">Hire me</a>
+    </section>
+
+    <main>
+        <section id="about" class="section">
+            <h2>About Me</h2>
+            <div class="content">
+                <div class="card-grid">
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-image">
+                            <img src="IMG_0239.JPG" alt="Om Chaudhari" loading="lazy">
+                        </div>
+                        <h3>Om Chaudhari</h3>
+                        <p class="title">IT Engineer</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Professional Summary</h3>
+                        <p>A passionate IT Engineer with expertise in web development and a strong foundation in computer science. Skilled in creating innovative solutions and dedicated to continuous learning.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Career Objective</h3>
+                        <p>Seeking opportunities to leverage my technical skills and creativity in challenging projects while contributing to innovative solutions in the field of IT.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="section">
+            <h2>Education</h2>
+            <div class="content">
+                <div class="card-grid">
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Bachelor of Engineering</h3>
+                        <p class="title">Information Technology</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">2021 - 2024</span>
+                        </div>
+                        <p>Sant Gadge Baba Amravati University</p>
+                        <p>Anuradha Engineering College Chikhali</p>
+                        <p>CGPA: 7.57</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3>Diploma</h3>
+                        <p class="title">Information Technology</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">2018 - 2021</span>
+                        </div>
+                        <p>Government College of Ambad</p>
+                        <p>Percentage: 78.53%</p>
+                        <p>First Class with Distinction</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-school"></i>
+                        </div>
+                        <h3>SSC</h3>
+                        <p class="title">Secondary School Certificate</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">2018</span>
+                        </div>
+                        <p>Maharashtra State Board</p>
+                        <p>Percentage: 65.80%</p>
+                        <p>First Class</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <h2>Skills</h2>
+            <div class="content">
+                <div class="card-grid">
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Programming</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">Advanced Java</span>
+                            <span class="skill-tag">JDBC</span>
+                            <span class="skill-tag">JSP</span>
+                            <span class="skill-tag">Servlet</span>
+                            <span class="skill-tag">JSTL</span>
+                            <span class="skill-tag">Hibernate</span>
+                            <span class="skill-tag">Spring</span>
+                            <span class="skill-tag">Spring Boot</span>
+                            <span class="skill-tag">Spring Security</span>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3>Web Technologies</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">HTML</span>
+                            <span class="skill-tag">CSS</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">Bootstrap</span>
+                            <span class="skill-tag">JQuery</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Angular</span>                                      
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Database</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <h2>Projects</h2>
+            <div class="content">
+                <div class="card-grid">
+                    <div class="info-card project-card">
+                        <div class="card-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <h3>Drivers Alert System And Locking Engine</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Arduino</span>
+                            <span class="skill-tag">IoT</span>
+                            <span class="skill-tag">Hardware</span>
+                        </div>
+                        <p>Developed a comprehensive Driver Alert System integrated with a Locking System during college, focusing on automotive safety and security.</p>
+                    </div>
+                    <div class="info-card project-card">
+                        <div class="card-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3>Student Management System</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">JDBC</span>
+                            <span class="skill-tag">JSP</span>
+                            <span class="skill-tag">Servlets</span>
+                        </div>
+                        <p>Developed a web-based application for managing student records with comprehensive CRUD functionality.</p>
+                    </div>
+                    <div class="info-card project-card">
+                        <div class="card-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3>E-Commerce Website</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">HTML</span>
+                            <span class="skill-tag">CSS</span>
+                            <span class="skill-tag">JavaScript</span>
+                        </div>
+                        <p>Designed and developed a fully functional e-commerce website with modern features and responsive design.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="internships" class="section">
+            <h2>Internships</h2>
+            <div class="content">
+                <div class="card-grid">
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3>Web Developer Intern</h3>
+                        <p class="title">CodeClause</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">2 Months</span>
+                            <span class="skill-tag">Remote</span>
+                        </div>
+                        <p>Developed responsive web applications and gained practical experience in modern web technologies.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3>Java Developer Intern</h3>
+                        <p class="title">Technohacks</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">2 Months</span>
+                            <span class="skill-tag">Remote</span>
+                        </div>
+                        <p>Completed remote internship while pursuing BE and assisted in Java application development.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="certifications" class="section">
+            <h2>Certifications</h2>
+            <div class="content">
+                <div class="card-grid">
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3>Java Programming</h3>
+                        <p class="title">Hope Conflict E-Learning And IT Solutions</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">2023</span>
+                        </div>
+                        <p>Demonstrated proficiency in core Java concepts and application development.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3>Advanced SQL</h3>
+                        <p class="title">HackerRank</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">2023</span>
+                        </div>
+                        <p>Verified SQL programming skills and database management expertise.</p>
+                        <a href="https://www.hackerrank.com/certificates/iframe/37a133c7141a" 
+                           class="certificate-link" 
+                           target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <h2>Contact Me</h2>
+            <div class="contact-wrapper">
+                <div class="contact-content">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="contact-info">
+                            <span class="contact-label">Email:</span>
+                            <span>omchaudhari553@gmail.com</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div class="contact-info">
+                            <span class="contact-label">Phone:</span>
+                            <span>+91 8830539869</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="contact-info">
+                            <span class="contact-label">Location:</span>
+                            <span>Pune, Maharashtra, India</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send Me a Message</h3>
+                    <form action="https://formspree.io/f/omchaudhari553@gmail.com" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            <div class="social-links-footer">
+                <a href="https://github.com/omchaudhari553" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/om-chaudhari553/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/its_om_chaudhari_patil_/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:omchaudhari553@gmail.com"><i class="far fa-envelope"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Portfolio. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
