@@ -48,17 +48,43 @@ scrollTopBtn.addEventListener('click', () => {
     });
 });
 
-// Menu Toggle Functionality
+// Mobile Menu Toggle
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 const menuIcon = document.querySelector('.menu-toggle i');
 
+// Make sure menu is closed on page load
+window.addEventListener('DOMContentLoaded', () => {
+    navLinks.style.display = 'none';
+    navLinks.classList.remove('show');
+    menuIcon.classList.remove('fa-times');
+    menuIcon.classList.add('fa-bars');
+});
+
 if (menuToggle && navLinks && menuIcon) {
     menuToggle.addEventListener('click', (e) => {
         e.stopPropagation();
-        navLinks.classList.toggle('show');
-        menuIcon.classList.toggle('fa-bars');
-        menuIcon.classList.toggle('fa-times');
+        const isMenuOpen = navLinks.classList.contains('show');
+        
+        if (!isMenuOpen) {
+            navLinks.style.display = 'flex';
+            // Small delay to ensure display: flex is applied before animation
+            setTimeout(() => {
+                navLinks.classList.add('show');
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            }, 10);
+        } else {
+            navLinks.classList.remove('show');
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+            // Wait for transition to finish before hiding
+            setTimeout(() => {
+                if (!navLinks.classList.contains('show')) {
+                    navLinks.style.display = 'none';
+                }
+            }, 400);
+        }
     });
 
     // Close menu when clicking a link
@@ -67,18 +93,37 @@ if (menuToggle && navLinks && menuIcon) {
             navLinks.classList.remove('show');
             menuIcon.classList.remove('fa-times');
             menuIcon.classList.add('fa-bars');
+            setTimeout(() => {
+                navLinks.style.display = 'none';
+            }, 400);
         });
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-        if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+        if (!menuToggle.contains(e.target) && !navLinks.contains(e.target) && navLinks.classList.contains('show')) {
             navLinks.classList.remove('show');
             menuIcon.classList.remove('fa-times');
             menuIcon.classList.add('fa-bars');
+            setTimeout(() => {
+                navLinks.style.display = 'none';
+            }, 400);
         }
     });
 }
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        navLinks.style.display = 'flex';
+        navLinks.style.right = '0';
+        menuIcon.classList.remove('fa-times');
+        menuIcon.classList.add('fa-bars');
+    } else if (!navLinks.classList.contains('show')) {
+        navLinks.style.display = 'none';
+        navLinks.style.right = '-100%';
+    }
+});
 
 // Mobile menu toggle
 const navContent = document.querySelector('.nav-content');
@@ -98,6 +143,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             });
             // Close mobile menu if open
             navLinks.classList.remove('show');
+            setTimeout(() => {
+                navLinks.style.display = 'none';
+            }, 400);
         }
     });
 });
@@ -163,126 +211,107 @@ projectCards.forEach(card => {
     });
 });
 
-// Three.js Background Animation
-let scene, camera, renderer, particles, particleSystem;
+// Three.js Particle Animation
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 5;
+
+// Create the Renderer
+const renderer = new THREE.WebGLRenderer({
+    canvas: document.querySelector('#bg-animation'),
+    alpha: true
+});
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000, 1);
+
+// Create Geometry for Particles
+const particleGeometry = new THREE.BufferGeometry();
+const particleCount = 2500;  
+const positions = new Float32Array(particleCount * 3);
+
+// Set Random Positions for Particles
+for (let i = 0; i < particleCount * 3; i += 3) {
+    positions[i] = (Math.random() - 0.5) * 30;     
+    positions[i + 1] = (Math.random() - 0.5) * 30; 
+    positions[i + 2] = (Math.random() - 0.5) * 30; 
+}
+
+// Add positions to Geometry
+particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+// Create PointsMaterial with aqua color
+const particleMaterial = new THREE.PointsMaterial({
+    color: 0x00ffff,
+    size: 0.05,      
+    transparent: true,
+    opacity: 0.8,    
+    blending: THREE.AdditiveBlending,
+    sizeAttenuation: true
+});
+
+// Create Points (Particle System)
+const particles = new THREE.Points(particleGeometry, particleMaterial);
+scene.add(particles);
+
+// Mouse movement tracking
 let mouseX = 0;
 let mouseY = 0;
-let targetX = 0;
-let targetY = 0;
-let windowHalfX = window.innerWidth / 2;
-let windowHalfY = window.innerHeight / 2;
-let particleGroups = [];
+document.addEventListener('mousemove', (event) => {
+    mouseX = (event.clientX - window.innerWidth / 2) * 0.0002;  
+    mouseY = (event.clientY - window.innerHeight / 2) * 0.0002;
+});
 
-function initThree() {
-    scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    
-    renderer = new THREE.WebGLRenderer({
-        canvas: document.querySelector('#bg-animation'),
-        alpha: true
-    });
-    
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.position.setZ(30);
-
-    // Create particle groups with different colors
-    createParticleGroup(1000, 0x00ff00, 180);  // Green particles
-    createParticleGroup(1000, 0x0000ff, 180);  // Blue particles
-    createParticleGroup(1000, 0xff0000, 180);  // Red particles
-
-    // Add ambient light
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-
-    // Add point light
-    const pointLight = new THREE.PointLight(0xffffff, 1);
-    pointLight.position.set(25, 25, 25);
-    scene.add(pointLight);
-}
-
-function createParticleGroup(count, color, spread) {
-    const geometry = new THREE.BufferGeometry();
-    const vertices = [];
-
-    for (let i = 0; i < count; i++) {
-        const x = THREE.MathUtils.randFloatSpread(spread);
-        const y = THREE.MathUtils.randFloatSpread(spread);
-        const z = THREE.MathUtils.randFloatSpread(spread);
-        vertices.push(x, y, z);
-    }
-
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-    const material = new THREE.PointsMaterial({
-        color: color,
-        size: 0.7,
-        transparent: true,
-        opacity: 0.8,
-        blending: THREE.AdditiveBlending
-    });
-
-    const particles = new THREE.Points(geometry, material);
-    particleGroups.push(particles);
-    scene.add(particles);
-}
-
-function updateParticles(delta) {
-    particleGroups.forEach((group, index) => {
-        group.rotation.x += 0.0003 * (index + 1);
-        group.rotation.y += 0.0005 * (index + 1);
-        group.rotation.z += 0.0002 * (index + 1);
-
-        // Add wave-like motion
-        group.position.y = Math.sin(Date.now() * 0.001 + index) * 2;
-    });
-
-    // Update camera position based on mouse
-    const targetX = (mouseX - camera.position.x) * 0.05;
-    const targetY = (mouseY - camera.position.y) * 0.05;
-    camera.position.x += targetX;
-    camera.position.y += targetY;
-    camera.lookAt(scene.position);
-}
-
-function onDocumentMouseMove(event) {
-    mouseX = (event.clientX - windowHalfX) * 0.05;
-    mouseY = (event.clientY - windowHalfY) * 0.05;
-}
-
-function onWindowResize() {
-    windowHalfX = window.innerWidth / 2;
-    windowHalfY = window.innerHeight / 2;
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-const clock = new THREE.Clock();
-
+// Animation Loop
 function animate() {
     requestAnimationFrame(animate);
 
-    const delta = clock.getDelta();
+    // Constant rotation even without mouse movement
+    particles.rotation.y += 0.0008;
+    particles.rotation.x += 0.0003;
+    particles.rotation.z += 0.0002;
+
+    // Update particle positions for continuous wave effect
+    const positions = particles.geometry.attributes.position.array;
+    const time = Date.now() * 0.00008;
+
+    for(let i = 0; i < positions.length; i += 3) {
+        // Continuous wave motion in multiple directions
+        positions[i] += Math.cos(time + positions[i + 1]) * 0.01;     // X movement
+        positions[i + 1] += Math.sin(time + positions[i]) * 0.01;     // Y movement
+        positions[i + 2] += Math.sin(time * 0.5 + positions[i]) * 0.01; // Z movement
+        
+        // Keep particles within bounds
+        if (Math.abs(positions[i]) > 15) positions[i] *= 0.99;
+        if (Math.abs(positions[i + 1]) > 15) positions[i + 1] *= 0.99;
+        if (Math.abs(positions[i + 2]) > 15) positions[i + 2] *= 0.99;
+    }
+    particles.geometry.attributes.position.needsUpdate = true;
+
+    // Automatic camera movement
+    const autoTime = Date.now() * 0.0001;
+    camera.position.x = Math.cos(autoTime) * 2;
+    camera.position.y = Math.sin(autoTime) * 2;
     
-    // Smooth camera movement
-    camera.position.x += (mouseX - camera.position.x) * 0.05;
-    camera.position.y += (-mouseY - camera.position.y) * 0.05;
+    // Combine automatic movement with mouse movement
+    if (Math.abs(mouseX) > 0.001 || Math.abs(mouseY) > 0.001) {
+        camera.position.x += (mouseX - camera.position.x) * 0.05;
+        camera.position.y += (-mouseY - camera.position.y) * 0.05;
+    }
+    
     camera.lookAt(scene.position);
-
-    // Update particles
-    updateParticles(delta);
-
     renderer.render(scene, camera);
 }
 
-// Initialize everything
-function init() {
-    initThree();
-    animate();
-}
+// Handle window resize
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
 
-// Start the animation when the page loads
-window.addEventListener('load', init);
+// Start animation
+animate();
 
 // Add hover effects to education cards
 document.querySelectorAll('.education-card').forEach(card => {
